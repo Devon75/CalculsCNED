@@ -1,0 +1,216 @@
+static void Main(string[] args)
+{
+  Console.WriteLine(racineCarre(10000));
+  Console.WriteLine(Math.Max(100,5000));
+  Console.ReadKey();
+
+            
+}
+
+static float racineCarre(double a)
+{
+   return (float)Math.Sqrt(a);
+}
+
+--------------------------------------------------------------
+
+int[,] mat1 = new int[,] { { 3, 1, 5 }, { 9, 8, -1 }, { 10, 12, 2 } };
+            int[,] mat2 = new int[,] { { 8, -1, 8 }, { 2, 1, 3 }, { 18, 2, 32 } };
+
+            int longueurMatrice1 = mat1.Length;
+            Console.WriteLine(mat1.Length);
+            int varcontrolleur = mat1.GetLength(0);
+            int longueurMatrice2 = mat2.Length;
+            Console.WriteLine(mat2.Length);
+
+            int[,] matResultat = new int[varcontrolleur, varcontrolleur];
+            
+            for (int i = 0; i < varcontrolleur; i++)
+            {
+                for (int j = 0; j < varcontrolleur; j++)
+                {
+
+                    matResultat[i, j] = 0;
+                    for (int k = 0; k < mat2.GetLength(0); k++)
+                    {
+                        matResultat[i, j] += mat1[i, k] * mat2[k, j];
+                    }
+
+                    Console.WriteLine("A*B : " + matResultat[i, j]);
+                }
+            }
+
+           
+            Console.ReadKey();
+
+--------------------------------------------------------------------------------
+
+// déclaration globale
+        static int essai;
+
+        /**
+         * saisie d'un essai entre 1 et 100
+         */
+
+        static void saisie()
+        {
+            do
+            {
+                Console.Write("Entrez un essai (entre 1 et 100) : ");
+                essai = int.Parse(Console.ReadLine());
+            } while (essai < 0 || essai > 100);
+        }
+
+        static void Main(string[] args)
+        {
+            // déclarations
+            int valeur, nbre = 1;
+
+            // saisir un nombre à chercher
+            Console.Write("Entrez le nombre à chercher : ");
+            valeur = int.Parse(Console.ReadLine());
+            Console.Clear();
+
+            // saisie du premier essai
+            saisie(); 
+            
+
+            // boucle sur les essais
+            while (essai != valeur)
+            {
+                // test de l'essai par rapport à la valeur à chercher
+                if (essai > valeur)
+                {
+                    Console.WriteLine(" --> trop grand !");
+                }
+                else
+                {
+                    Console.WriteLine(" --> trop petit !");
+                }
+                // saisie d'un essai
+                saisie();
+
+                // compteur d'essais
+                nbre++;
+            }
+
+            // valeur trouvée et affichage du nombre de tentative
+            Console.WriteLine("Vous avez trouvé en " + nbre + " fois !");
+            Console.ReadLine();
+        }
+        
+--------------------------------------------------------------------------------
+
+/**
+         * saisie de la réponse O ou N
+         */
+
+        static char saisie()
+        {
+            char reponse;
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Avez-vous un prix à saisir ? (O/N) ");
+                reponse = Console.ReadKey().KeyChar;
+            } while (reponse != 'O' && reponse != 'N');
+            return reponse;
+        }
+
+        static void Main(string[] args)
+        {
+            // déclaration
+            float prix, reponse, total = 0;
+
+            // question pour saisir un prix
+            reponse = saisie();
+            
+            // boucle sur la saisie des prix
+            while (reponse == 'O')
+            {
+                // saisie d'un prix
+                Console.Write("     prix : ");
+                prix = float.Parse(Console.ReadLine());
+                // cumul
+                total += prix;
+                // question pour saisir un prix
+                reponse = saisie();
+            }
+
+            // affichage du total
+            Console.WriteLine("   total des prix = " + total);
+            Console.ReadLine();
+        }
+
+-----------------------------------------------------------------------
+
+        /**
+         * saisie d'une reponse d'un caractere parmi 2
+         */
+
+        static char saisie(string message, char carac1, char carac2)
+        {
+            char reponse;
+            do
+            {
+                Console.Write(message + " (" + carac1 + "/" + carac2 + ") ");
+                reponse = Console.ReadKey().KeyChar;
+                Console.WriteLine();
+            } while (reponse != carac1 && reponse != carac2);
+            return reponse;
+        }
+
+        /**
+         * calcul à partir d'une relation polonaise
+         */
+        static float polonaise(String formule)
+        {
+            // transformation formule en vecteur
+            string[] vec = formule.Split(' ');
+
+            // nombre de cases remplies
+            int nbCases = vec.Length;
+
+            // boucle tant qu'il reste plus d'une case
+            while(nbCases > 1)
+            {
+                // recherche d'un signe à partir de la fin
+                int k = nbCases - 1;
+                while (k>0 && vec[k]!="+" && vec[k] != "=" && vec[k] != "*" && vec[k] != "/")
+                {
+                    k--;
+                }
+
+                // récupération des 2 valeurs numériques
+                float v1 = float.Parse(vec[k + 1]);
+                float v2 = float.Parse(vec[k + 2]);
+
+                // calcul
+                float result = 0;
+                switch (vec[k])
+                {
+                    case "+": result = v1 + v2; break;
+                    case "-": result = v1 - v2; break;
+                    case "*": result = v1 * v2; break;
+                    case "/": result = v1 / v2; break;
+                }
+            }
+        }
+        
+        static void Main(string[] args)
+        {
+            // déclaration
+            char reponse;
+
+            do
+            {
+                // saisie de la formule
+                Console.WriteLine("Entrez une formule polonaise en séparant caque partie par un espace : ");
+                string laFormule = Console.ReadLine();
+
+                // affichage du résultat
+
+                // continuez ?
+                reponse = saisie("Voulez-vous continuez ?", 'O', 'N');
+            } while (reponse == 'O');
+        }
